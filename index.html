@@ -288,7 +288,8 @@
                     <td><p>element.innerHTML</p></td>
                     <td><a href="static/window.name/innerhtml.html">innerhtml.html</a></td>
                     <td><p><b>element.innertHTML </b> receives user input from the source window.name, this is a common mistake
-                      by developers if they forget to use the 'var' keyword when declaring a variable called name
+                      by developers if they forget to use the 'var' keyword when declaring a variable called name. This is a specially dangerous
+                      dom-xss flaw since the window.name attribute will traverse through different domains.
                       <hr>
                       In order to fix this issue developers should avoid the use of the unsafe javascript element.innerHTML and use instead <b>element.innerText</b> or in such case perform sanitization / encoding of the name introduced by the user.
                     </td>
