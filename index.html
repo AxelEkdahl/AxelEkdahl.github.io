@@ -36,7 +36,11 @@
                 <tr>
                   <td><p>Document.write</p></td>
                   <td><a href="static/document.URL/document_write.html#&lt;img src=foo onerror=alert(123)&gt;">document_write.html#&lt;img src=foo onerror=alert(123)&gt;</a></td>
-                  <td><b>document.write</b> with an unfiltered value from document.URL</td>
+                  <td><b>document.write</b> is used with an unfiltered value from the source document.URL. Both Firefox and Chrome encode the url making this attack unsuccessful furthermore Chrome XSS auditor also blocks this operation. Neither IE or Edge perform URL encoding suffering from this flaw in the webpage code.
+                    <hr>
+                  In order to fix this vulnerability the developer should replace the document.write API call
+                  as it is considered an unsafe API and should be avoided.
+                  </td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
