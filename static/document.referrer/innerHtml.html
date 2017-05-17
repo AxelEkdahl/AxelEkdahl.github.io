@@ -4,14 +4,15 @@
 </head>
 <div id="cat"></div>
 <h1>referrer</h1>
-
+<div id="foo"></div>
+<a href="static/referrer/innerHtml.html">Update page</a>
 <script>
-
-	window.onload = new function(){
-		var stateObj = { foo: "bar" };
+	document.getElementById('foo').innerHTML = decodeURIComponent(document.referrer);
+	//window.onload = new function(){
+	//	var stateObj = { foo: "bar" };
 		//history.pushState(stateObj, "page 2", "bar.html");
-		window.history.pushState(stateObj, "referrer.html","static/Referrer/innerHTML.html?<img%20src=x%20onerror=alert(9)>?");
-		document.getElementById("dog").innerHTML = decodeURIComponent(document.referrer);
+	//	window.history.pushState(stateObj, "referrer.html","static/Referrer/innerHTML.html?<img%20src=x%20onerror=alert(9)>?");
+	//	document.getElementById("dog").innerHTML = decodeURIComponent(document.referrer);
 	}
 	
 </script>
