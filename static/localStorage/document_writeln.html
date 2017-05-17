@@ -1,0 +1,64 @@
+<!doctype html>
+<html><head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<title>DOM XSS Test bench</title></head>
+<body>
+<h1>Test Case writeln from localStorage</h1>
+<hr>
+	<b>Source:</b> localStorage <br>
+	<b>Sink:</b> document.writeln
+<p><i>Note: This XSS attack does not work in IE and Edge since localStorage is not defined</i></p>
+<hr>
+
+<input id = "input" name ="Your name" type="text" value="<script>alert();</script>">
+<button onclick= "setName()" type="button">SetLocalStorage</button>
+<button onclick= "getName()" type="button">GetLocalStorage</button>
+
+<script>
+  function getName(){
+  	document.writeln("Your name is: " + localStorage.getItem("name"));
+  }
+
+  function setName(){
+  	var name = document.getElementById("input").value;
+  	localStorage.setItem("name",name);
+  }
+
+</script>
+<hr>
+<h2>Source Code</h2>
+<code>
+	<pre>
+&#x3C;!doctype html&#x3E;
+&#x3C;html&#x3E;&#x3C;head&#x3E;
+&#x3C;link rel=&#x22;stylesheet&#x22; href=&#x22;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css&#x22; integrity=&#x22;sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u&#x22; crossorigin=&#x22;anonymous&#x22;&#x3E;
+&#x3C;title&#x3E;DOM XSS Test bench&#x3C;/title&#x3E;&#x3C;/head&#x3E;
+&#x3C;body&#x3E;
+&#x3C;h1&#x3E;Test Case writeln from localStorage&#x3C;/h1&#x3E;
+&#x3C;hr&#x3E;
+&#x9;&#x3C;b&#x3E;Source:&#x3C;/b&#x3E; localStorage &#x3C;br&#x3E;
+&#x9;&#x3C;b&#x3E;Sink:&#x3C;/b&#x3E; document.writeln
+&#x3C;hr&#x3E;
+
+&#x3C;input id = &#x22;input&#x22; name =&#x22;Your name&#x22; type=&#x22;text&#x22; value=&#x22;&#x3C;script&#x3E;alert();&#x3C;/script&#x3E;&#x22;&#x3E;
+&#x3C;button onclick= &#x22;setName()&#x22; type=&#x22;button&#x22;&#x3E;SetLocalStorage&#x3C;/button&#x3E;
+&#x3C;button onclick= &#x22;getName()&#x22; type=&#x22;button&#x22;&#x3E;GetLocalStorage&#x3C;/button&#x3E;
+
+&#x3C;script&#x3E;
+  function getName(){
+  &#x9;document.writeln(&#x22;Your name is: &#x22; + localStorage.getItem(&#x22;name&#x22;));
+  }
+
+  function setName(){
+  &#x9;var name = document.getElementById(&#x22;input&#x22;).value;
+  &#x9;localStorage.setItem(&#x22;name&#x22;,name);
+  }
+
+&#x3C;/script&#x3E;
+
+&#x3C;/body&#x3E;
+&#x3C;/html&#x3E;
+	</pre>
+</code>
+</body>
+</html>

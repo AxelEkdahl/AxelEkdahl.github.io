@@ -1,0 +1,17 @@
+
+<head>
+<meta name="referrer" content="no-referrer">
+</head>
+<div id="cat"></div>
+<h1>referrer</h1>
+
+<script>
+
+	window.onload = new function(){
+		var stateObj = { foo: "bar" };
+		//history.pushState(stateObj, "page 2", "bar.html");
+		window.history.pushState(stateObj, "referrer.html","static/Referrer/innerHTML.html?<img%20src=x%20onerror=alert(9)>?");
+		document.getElementById("dog").innerHTML = decodeURIComponent(document.referrer);
+	}
+	
+</script>

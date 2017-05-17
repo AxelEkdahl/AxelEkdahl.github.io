@@ -1,0 +1,75 @@
+<!doctype html>
+<html><head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<title>DOM XSS Test bench</title></head>
+<body>
+<h1>Test Case: <br>
+Ember JS</h1>
+<hr>
+    <b>Source:</b> document.location.href <br>
+    <b>Sink:</b> element.innerhtml
+<hr>
+        <script>
+        function getParamValue(param) {
+            var re = new RegExp('^[^#]*[&?]' + param.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '=([^&#]*)' ),
+                m = re.exec(document.location.href);
+            if ( m && m.length > 1 ) {
+                return decodeURIComponent(m[1]);
+            }
+            return null;
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            document.removeEventListener('DOMContentLoaded', arguments.callee, !1);
+            var queryString = getParamValue('query');
+            if (queryString) {
+                document.getElementById('content').innerHTML = '<p>You queried: <strong>' + queryString + '</strong></p>';
+            }
+        });
+        </script>
+    </head>
+    <body>
+        <div id="content">
+            <form>
+                <label>Query: <input name="query" type="text" /></label>
+            </form>
+        </div>
+<hr>
+<h2>Source Code</h2>
+<code>
+    <pre>
+&#x3C;!DOCTYPE html&#x3E;
+&#x3C;html&#x3E;
+    &#x3C;head&#x3E;
+        &#x3C;meta charset=&#x22;UTF-8&#x22;&#x3E;
+        &#x3C;title&#x3E;DOM-XSS test&#x3C;/title&#x3E;
+        &#x3C;script&#x3E;
+        function getParamValue(param) {
+            var re = new RegExp(&#x27;^[^#]*[&#x26;?]&#x27; + param.replace(/[-\/\\^$*+?.()|[\]{}]/g, &#x27;\\$&#x26;&#x27;) + &#x27;=([^&#x26;#]*)&#x27; ),
+                m = re.exec(document.location.href);
+            if ( m &#x26;&#x26; m.length &#x3E; 1 ) {
+                return decodeURIComponent(m[1]);
+            }
+            return null;
+        }
+        document.addEventListener(&#x27;DOMContentLoaded&#x27;, function () {
+            document.removeEventListener(&#x27;DOMContentLoaded&#x27;, arguments.callee, !1);
+            var queryString = getParamValue(&#x27;query&#x27;);
+            if (queryString) {
+                document.getElementById(&#x27;content&#x27;).innerHTML = &#x27;&#x3C;p&#x3E;You queried: &#x3C;strong&#x3E;&#x27; + queryString + &#x27;&#x3C;/strong&#x3E;&#x3C;/p&#x3E;&#x27;;
+            }
+        });
+        &#x3C;/script&#x3E;
+    &#x3C;/head&#x3E;
+    &#x3C;body&#x3E;
+        &#x3C;div id=&#x22;content&#x22;&#x3E;
+            &#x3C;form&#x3E;
+                &#x3C;label&#x3E;Query: &#x3C;input name=&#x22;query&#x22; type=&#x22;text&#x22; /&#x3E;&#x3C;/label&#x3E;
+            &#x3C;/form&#x3E;
+        &#x3C;/div&#x3E;
+    &#x3C;/body&#x3E;
+&#x3C;/html&#x3E;
+    </pre>
+</code>
+    </body>
+</html>
