@@ -5,7 +5,7 @@
 <div id="cat"></div>
 <h1>referrer</h1>
 <div id="foo"></div>
-<a href="static/document.referrer/innerHtml.html">Update page</a>
+<a href="innerHtmlRedirection.html">Next page</a>
 <script>
 	document.getElementById('foo').innerHTML = decodeURIComponent(document.referrer);
 	//window.onload = new function(){
@@ -13,6 +13,6 @@
 		//history.pushState(stateObj, "page 2", "bar.html");
 	//	window.history.pushState(stateObj, "referrer.html","static/Referrer/innerHTML.html?<img%20src=x%20onerror=alert(9)>?");
 	//	document.getElementById("dog").innerHTML = decodeURIComponent(document.referrer);
-	}
+	//}
 	
 </script>

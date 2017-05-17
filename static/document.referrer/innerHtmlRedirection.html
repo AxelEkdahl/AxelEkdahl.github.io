@@ -1,0 +1,13 @@
+
+<head>
+<meta name="referrer" content="no-referrer">
+</head>
+<div id="cat"></div>
+<h1>referrer</h1>
+<div id="foo"></div>
+<a href="innerHtml.html">Go back to referrer page</a>
+<script>
+	document.getElementById('foo').innerHTML = decodeURIComponent(document.referrer);
+	}
+	
+</script>
