@@ -285,9 +285,13 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td><p>document.write</p></td>
-                    <td><a href="/static/window.name/document_write.html">document_write.html</a></td>
-                    <td><p><b>document.write </b> with unfiltered value from window.name</td>
+                    <td><p>element.innerHTML</p></td>
+                    <td><a href="static/window.name/innerhtml.html">innerhtml.html</a></td>
+                    <td><p><b>element.innertHTML </b> receives user input from the source window.name, this is a common mistake
+                      by developers if they forget to use the 'var' keyword when declaring a variable called name
+                      <hr>
+                      In order to fix this issue developers should avoid the use of the unsafe javascript element.innerHTML and use instead <b>element.innerText</b> or in such case perform sanitization / encoding of the name introduced by the user.
+                    </td>
                     <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                     <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                     <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
