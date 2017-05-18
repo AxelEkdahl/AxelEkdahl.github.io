@@ -50,7 +50,9 @@
                 <tr>
                   <td><p>element.innerHTML</p></td>
                   <td><a href="static/document.URL/innerhtml.html#&lt;img src=foo onerror=alert(123)&gt;">innerhtml.html#&lt;img src=foo onerror=alert(123)&gt;</a></td>
-                  <td><b>element.innerhtml</b> with an unfiltered value from document.URL.</td>
+                  <td><b>element.innerhtml</b> is used with an unfiltered value from the sourcedocument.URL. In this case the XSS auditor from Google Chrome does not block the attack.<hr>
+                    In order to fix this dom-xss flaw the developer should instead use a safe Javascript API like element.innertText instead
+                    of innerHTMl, making sure the user input is rendered only as text.</td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
@@ -60,7 +62,10 @@
                 <tr>
                   <td><p>element.SetAttribute()</p></td>
                   <td><a href="static/document.URL/setattribute.html?url=javascript:alert(1)">setattribute.html?url=javascript:alert(1)</a></td>
-                  <td><b>element.setAttribute(href,)</b> with an unfiltered value from document.URL.</td>
+                  <td><b>element.setAttribute(href,)</b> is used with an unfiltered value from the source document.URL. Since javascript: is a valid scheme for the href attribute all the browsers will execute any user input code that gets inserted into this attribute.
+                    <hr>
+                    A solution to this issue would be to either sanitize the user input, or avoid the use of the setAttribute method with 
+                    user input data.</td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
@@ -70,27 +75,32 @@
                 <tr>
                   <td><p>Eval()</p></td>
                   <td><a href="static/document.URL/eval.html?pid=3');eval(String.fromCharCode(97,108,101,114,116,40,39,104,105,39,41))//">eval.html?pid=3');eval(String.fromCharCode(97,108,101,114,116,40,39,104,105,39,41))//</a></td>
-                  <td><b>eval</b> with an unfiltered value from document.URL.</td>
+                  <td><b>eval</b> is used here with an unfiltered value from the source document.URL. Since eval evaluates the string given as code any user input value supplied here can be executed code and there is no safe way to avoid this xss flaw.
+                    <hr>
+                    Eval should not be used with user controlled input.</td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                 </tr>
 
-                <tr>
+                <!--<tr>
                   <td><p>ScriptElement.onclick()</p></td>
                   <td><a href="static/document.URL/onclick.html?pid=3');eval(String.fromCharCode(97,108,101,114,116,40,39,104,105,39,41))//">onclick.html?pid=3');eval(String.fromCharCode(97,108,101,114,116,40,39,104,105,39,41))//</a></td>
-                  <td><b>element.onclick</b> with an unfiltered value from document.URL.</td>
+                  <td><b>element.onclick</b> is here used with an unfiltered value from the source document.URL. Any attribute </td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
-                </tr>
+                </tr>-->
 
                 <tr>
                   <td><p>Location.replace</p></td>
                   <td><a href="static/document.URL/locationreplace.html?q=javascript:alert()">locationreplace.html?q=javascript:alert()</a></td>
-                  <td><b>location.replace</b> with an unfiltered value from document.URL.</td>
+                  <td><b>location.replace</b> is used here with an unfiltered value from the source document.URL. Browser encoding of the url 
+                    does not help prevent this attack, since URL encoding does not prevent from using the javascript: scheme to run user scripts
+                    <hr>
+                    The most effective way to avoid such vulnerability is to avoid the use of dynamic redirections using the user introduced data</td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
