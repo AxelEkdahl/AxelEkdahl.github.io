@@ -2,13 +2,17 @@
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
-<body onload="go()">
+<body>
 <h1>Test Case:<br />
  location.hash -> location.replace</h1>
 <hr />
 <p><b>Source: </b>location.hash</p>
 <p><b>Sink: </b>location.replace</p>
-<input type="button" id="btn1" value="Click Me" onClick="go()"></input>
+<div class="row">
+	<div class="col-md-2">
+		<input type="button" id="btn1" class="form-control" value="Redirect new page" onClick="go()"/>
+	</div>
+</div>
 
 <hr/>
 <h2>Code</h2>
@@ -18,13 +22,18 @@
 &#x3C;head&#x3E;
   &#x3C;link rel=&#x22;stylesheet&#x22; href=&#x22;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css&#x22; integrity=&#x22;sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u&#x22; crossorigin=&#x22;anonymous&#x22;&#x3E;
 &#x3C;/head&#x3E;
-&#x3C;body onload=&#x22;go()&#x22;&#x3E;
+&#x3C;body&#x3E;
 &#x3C;h1&#x3E;Test Case:&#x3C;br /&#x3E;
  location.hash -&#x3E; location.replace&#x3C;/h1&#x3E;
 &#x3C;hr /&#x3E;
 &#x3C;p&#x3E;&#x3C;b&#x3E;Source: &#x3C;/b&#x3E;location.hash&#x3C;/p&#x3E;
 &#x3C;p&#x3E;&#x3C;b&#x3E;Sink: &#x3C;/b&#x3E;location.replace&#x3C;/p&#x3E;
-&#x3C;input type=&#x22;button&#x22; id=&#x22;btn1&#x22; value=&#x22;Click Me&#x22; onClick=&#x22;go()&#x22;&#x3E;&#x3C;/input&#x3E;
+&#x3C;div class=&#x22;row&#x22;&#x3E;
+&#x9;&#x3C;div class=&#x22;col-md-2&#x22;&#x3E;
+&#x9;&#x9;&#x3C;input type=&#x22;button&#x22; id=&#x22;btn1&#x22; class=&#x22;form-control&#x22; value=&#x22;Redirect new page&#x22; onClick=&#x22;go()&#x22;/&#x3E;
+&#x9;&#x3C;/div&#x3E;
+&#x3C;/div&#x3E;
+&#x3C;hr/&#x3E;
 &#x3C;script&#x3E;
 &#x9;function go(){
 &#x9;&#x9;if (document.location.hash.split(&#x22;#&#x22;)[1])

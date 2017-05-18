@@ -238,7 +238,11 @@
                     <tr>
                       <td>location.replace</td>
                       <td><a href="static/location.hash/location.replace.html#Javascript:alert(0)">location.html#Javascript:alert(0)</a></td>
-                      <td><p><b>location.replace </b>with unfiltered value from location.hash</td>
+                      <td>
+                        <p>In this test case the <b>location.replace </b> is used with unfiltered value from the source <b>location.hash</b>.
+                        <hr />
+                        <p> The best protection against this would be to move the functionality of redirect a user from  client side to the server side. This with a combination of not having user controlled input data going into the sink. </p>
+                        </td>
                       <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                       <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                       <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
@@ -248,12 +252,30 @@
                     </tr>
                     <tr>
                       <td>document.write</td>
-                      <td><a href="static/location.hash/document.write.html#<script>alert()</script>">document.write.html#alert()</a></td>
-                      <td><p><b>document.write </b> with unfiltered value from location.hash.</td>
+                      <td><a href="static/location.hash/document.write.html#<script>alert()</script>">document.write.html#&lt;script&gt;alert()&lt;/script&gt;</a></td>
+                      <td>
+                          <p>In this test case the sink <b>document.write </b> is used with unfiltered value from the source <b>location.hash</b> without any encoding or validation being used.</p>
+                          <hr />
+                          <p>This sink should be a voided as much as possible. Specifically for this test case the XSS Auditor understands there is malicious content being sent (the &lt;script&gt; tags added in the end of the link) and hence blocking the execution. Firefox understands this as well but instead encodes the content. If this sink being used the developer need to make sure to do proper encoding or validation.
+                      </td>
                       <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
                       <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
                       <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                       <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                     </tr>
+                     <tr>
+                      <td>setTimeou</td>
+                      <td><a href="static/location.hash/document.setTimeout.html#timer=alert()">setTimeout.html#timer=alert()</a></td>
+                      <td>
+                        <p>In this test case the <b>document.setTimeout </b> is given unfiltered content from <b>location.hash.</b> </p>
+                        <hr />
+                        <p>This sink is a common sink prone to XSS attacks and should not be used. This since it can execute content of typ string. Hence developers should not use this sink with user controlled input. </p>
+                      </td>
+                      <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                      <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                      <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                      <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                     </tr>
 
                     </tbody>
                   </table>
@@ -348,21 +370,22 @@
                     <th class="col-md-1 text-center">Edge</th>
                     <th class="col-md-1 text-center">IE</th>   
                   </tr>
-
                 </thead>
                 <tbody>
                  <tr>
                   <td><p>element.innerHTML</p></td>
                   <td><a href="static/document.referrer/innerHtml.html?<img%20src=x%20onerror=Javascript:alert(9)>?" >innerHtml.html?q=javascript:alert()</a></td>
-                  <td><b>element.innerhtml</b> with an unfiltered value from document.referrer</td>
-                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
-                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
+                  <td><p>Test case where the value in the referrer object is decoded into <b>document.innerHTML</b> to let the user be aware of the previous visited page. The <b>document.referrer</b> object keeps track of the previously visited domain and hence if user controlled parameters in the url aren't handled properly the website will be prone to DOM XSS when using this attribute. </p>
+                  <hr />
+                   <p>Instead of using unsafe sinks such as <b>element.innerHTML</b> safe API's such as <b>element.innerText</b> should be used. Also sanitization could be used to properly handle any malicious injection, e.g. sanitization of the keyword Javascript: or script tags.</p>
+                  </td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
+                  <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                 </tr>
               </tbody>
             </table>
-
 
             <h1>Source: <br> localStorage</h1>
             <table class="table table-striped">

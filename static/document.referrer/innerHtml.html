@@ -8,7 +8,6 @@
 	<hr />
 	<p><b>Source: </b> "document.referrer"</p>
 	<p><b>Sink: </b>"document.innerHTML"</p>
-	<p><i>Note: This test case is only exploitable for Internet Explorer and Microsoft Edge since they allow special characters in the subdomains of urls</i></p> 
 	<hr />
 	<p id="foo">You are coming from: <b id="bar"></b></p>
 	<a href="innerHtmlRedirection.html">Next page</a>
@@ -29,13 +28,13 @@
 &#x9;&#x3C;hr /&#x3E;
 &#x9;&#x3C;p&#x3E;&#x3C;b&#x3E;Source: &#x3C;/b&#x3E; &#x22;document.referrer&#x22;&#x3C;/p&#x3E;
 &#x9;&#x3C;p&#x3E;&#x3C;b&#x3E;Sink: &#x3C;/b&#x3E;&#x22;document.innerHTML&#x22;&#x3C;/p&#x3E;
-&#x9;&#x3C;p&#x3E;&#x3C;i&#x3E;Note: This test case is only exploitable for Internet Explorer and Microsoft Edge since they allow special characters in the subdomains of urls&#x3C;/i&#x3E;&#x3C;/p&#x3E; 
 &#x9;&#x3C;hr /&#x3E;
 &#x9;&#x3C;p id=&#x22;foo&#x22;&#x3E;You are coming from: &#x3C;b id=&#x22;bar&#x22;&#x3E;&#x3C;/b&#x3E;&#x3C;/p&#x3E;
 &#x9;&#x3C;a href=&#x22;innerHtmlRedirection.html&#x22;&#x3E;Next page&#x3C;/a&#x3E;
 &#x9;&#x3C;script&#x3E;
 &#x9;&#x9;document.getElementById(&#x27;bar&#x27;).innerHTML = decodeURIComponent(document.referrer);
 &#x9;&#x3C;/script&#x3E;
+&#x9;&#x3C;hr /&#x3E;
 &#x3C;/body&#x3E;
 &#x3C;/html&#x3E;
 	</pre>
