@@ -1,4 +1,4 @@
-﻿  <!DOCTYPE html>
+  <!DOCTYPE html>
 
   <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -175,8 +175,13 @@
               </thead>
               <tbody>
                 <td><p>document.write</p></td>
-                <td><a href="static/location.href/document.write.html?default=%3Cscript%3Ealert(%27hi%27)%3C/script%3E">document.write.html?default=&lt;script&gt;alert(hi)&lt;/script&gt;</a>
-                  <td><p><b>document.write</b> with decoded input value from location.href.</td>
+                <td>
+                  <a href="static/location.href/document.write.html?default=<script>alert('hi')</script>">document.write.html?default=&lt;script&gt;alert(hi)&lt;/script&gt;</a>
+                  <td>
+                    <p>This example simulates an attack were the target user is given a malicious link to click on. The target website are using GET requests containing the parameter 'default' to populate a form selection. The form is created with javascript and the source. <b> document.write</b> is used with a decoded input value from <b>location.href</b>.</p>
+                    <hr />
+                    <p>Here we see an example of when sanitization would be of great help. The url from the beginning is urlencoded which later on will be decoded before reaching the sink <b>document.write</b>. Therefore, the malicious code will get exectued anyway. Proper sanitization should be done with a combination of html escaping between the decoding and when the sink retrieves the content. Another solution would be to use <b>element.innerText </b> as a sink instead of <b>document.write</b>. </p>
+                  </td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
@@ -201,7 +206,14 @@
                   <tr>
                     <td><p>document.write</p></td>
                     <td><a href="static/location.search/document.write.html?<svg/onload=alert(1)">document.write.html?&lt;svg/onload=alert(1)</a></td>
-                    <td><p><b>document.write</b> with unfiltered value from location.search</td>
+                    <td>
+                      <p>
+                        This test case simulates an attack vector that is used by taking advantage of the svg element in html that is used for creating grafical vectors. This is a common attack vector to used since the attribute onload allows javascript to be executed. Here the sink being <b>document.write</b> and it is used with unfiltered value from the source <b>location.search</b></p>
+                      <hr />
+                      <p>
+                        The solution to this is to perform html escaping before the content reach the sink in order to prevent the svg element to be executed.                       
+                      </p>
+                    </td>
                     <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                     <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                     <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
@@ -210,7 +222,15 @@
                   <tr>
                   <td><p>window.setInterval</p></td>
                     <td><a href="static/location.search/setInterval.html">setInterval.html</a></td>
-                    <td><p><b>window.setInterval</b> with unfiltered value from location.search</td>
+                    <td>
+                      <p>
+                        This example illustrates a search page which not have interaction towards a server but instead could be a word count at the current page. The result is desired to have some delay before being presented, therefore the developer using <b>window.setInterval</b>. This sink is populated with an unfiltered value from location.search</p>
+                      <p>
+                        This is a typical sink that never should be used due to the reason that it can interpret string values into executable code. Hence making encodong useless. Even if the input being sanitized it is not entirely safe, since it is hard to cover all possible combinations of threats. This sink should never be used with user controlled input.
+                      </p>
+
+                      <hr />
+                    </td>
                     <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                     <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                     <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
@@ -219,7 +239,6 @@
 
                   </tbody>
                 </table>
-
 
                 <h1>Source: <br> location.hash</h1>
                 <table class="table table-striped">
@@ -239,9 +258,12 @@
                       <td>location.replace</td>
                       <td><a href="static/location.hash/location.replace.html#Javascript:alert(0)">location.html#Javascript:alert(0)</a></td>
                       <td>
-                        <p>In this test case the <b>location.replace </b> is used with unfiltered value from the source <b>location.hash</b>.
+                        <p>
+                          In this test case the <b>location.replace </b> is used with unfiltered value from the source <b>location.hash</b>. 
+                        </p>
                         <hr />
-                        <p> The best protection against this would be to move the functionality of redirect a user from  client side to the server side. This with a combination of not having user controlled input data going into the sink. </p>
+                        <p> 
+                          The best protection against this would be to move the functionality of redirect a user from  client side to the server side. This with a combination of not having user controlled input data going into the sink. However, if the functionality will be kept on client side proper sanitization needs to be done to prevent the Javascript: scheme.</p>
                         </td>
                       <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                       <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
@@ -264,12 +286,14 @@
                       <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                      </tr>
                      <tr>
-                      <td>setTimeou</td>
+                      <td>setTimeout</td>
                       <td><a href="static/location.hash/document.setTimeout.html#timer=alert()">setTimeout.html#timer=alert()</a></td>
                       <td>
-                        <p>In this test case the <b>document.setTimeout </b> is given unfiltered content from <b>location.hash.</b> </p>
+                        <p>
+                          In this test case the <b>document.setTimeout</b> is given unfiltered content, from the hashtag in the url, through an image's onload attribute.</p>
                         <hr />
-                        <p>This sink is a common sink prone to XSS attacks and should not be used. This since it can execute content of typ string. Hence developers should not use this sink with user controlled input. </p>
+                        <p>
+                          This sink is a common sink prone to XSS attacks and should not be used. This since it can execute content of typ string into code. Hence developers should not use this sink with user controlled input. </p>
                       </td>
                       <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                       <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>

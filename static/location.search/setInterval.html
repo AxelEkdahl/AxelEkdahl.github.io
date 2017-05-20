@@ -4,16 +4,16 @@
 	</head>
   <body>
     <h1>Test Case:<br />
-    href -> window.setInterval</h1>
+    location.href -> window.setInterval</h1>
     <hr />
     <p><b>Source: </b>location.href</p>
     <p><b>Sink: </b>window.setInterval</p>
-    <p><i>Add the following string into the search field: <b>Javascript:alert();</b></i></p>
+    <p><i>Info: Click the search button</i></p>
     <hr />
     <div class="row">
       <div class="col-md-7 form-group">
         <div class="col-md-5">
-          <input type="text"  id="inputSearch" class="form-control" placeholder=" Search"/>
+          <input type="text"  id="inputSearch" class="form-control" value="Javascript:alert();" placeholder=" Search"/>
         </div>
         <div class="col-md-2">
           <button class="form-control btn btn-primary" id="searchBtn" value="Search">Search   </button>
@@ -28,10 +28,9 @@
   <script>
     var btn = document.getElementById('searchBtn');
     btn.addEventListener('click', function(){
-      console.log("onclick");
       var s = document.getElementById('inputSearch').value.toString();
       document.search = s;
-      window.setInterval(document.search,1000);
+      window.setInterval( document.search,1000);
     });
   </script>
   <hr>
