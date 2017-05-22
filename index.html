@@ -24,7 +24,7 @@
                 <tr>
                   <th class="col-md-1">Sink</th>
                   <th class="col-md-3">Sample attack</th>
-                  <th class="col-md-4">Description</th>
+                  <th class="col-md-4">Description/Solution</th>
                   <th class="col-md-1 text-center">Firefox</th>
                   <th class="col-md-1 text-center">Chrome</th>
                   <th class="col-md-1 text-center">Edge</th>
@@ -39,7 +39,7 @@
                   <td><b>document.write</b> is used with an unfiltered value from the source document.URL. Both Firefox and Chrome encode the url making this attack unsuccessful furthermore Chrome XSS auditor also blocks this operation. Neither IE or Edge perform URL encoding suffering from this flaw in the webpage code.
                     <hr>
                   In order to fix this vulnerability the developer should replace the document.write API call
-                  as it is considered an unsafe API and should be avoided. Or as an alternative 
+                  as it is considered an unsafe API and should be avoided. Or if it is really needed perform client side encoding for html context.
                   </td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
@@ -116,7 +116,7 @@
                 <tr>
                   <th class="col-md-1">Sink</th>
                   <th class="col-md-3">Sample attack</th>
-                  <th class="col-md-4">Description</th>
+                  <th class="col-md-4">Description/Solution</th>
                   <th class="col-md-1 text-center">Firefox</th>
                   <th class="col-md-1 text-center">Chrome</th>
                   <th class="col-md-1 text-center">Edge</th>
@@ -145,7 +145,15 @@
                 <tr>
                   <td><p>element.innerHTML</p></td>
                   <td><a href="static/document.documentURI/innerhtml.html#&lt;img src=foo onerror=alert(123)&gt;">innerhtml.html#&lt;img src=foo onerror=alert(123)&gt;</a></td>
-                  <td><b>element.innerhtml</b> with an unfiltered value from document.documentURI.</td>
+                  <td>
+                    <p>
+                    <b>element.innerhtml</b> is used here with an unfiltered value from document.documentURI. HTML5 specifies that a &lt;script&gt; tag inserted via innerHTML should not execute but other types of tags can be injected here making this API unsafe.
+                    </p>
+                    <hr/>
+                    <p>
+                      The developer could replace this with safe javascript methods as element.innerText or element.appendChild forcing the browser to render the content as text
+                    </p>
+                  </td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
@@ -155,7 +163,14 @@
                 <tr>
                   <td><p>Eval()</p></td>
                   <td><a href="static/document.documentURI/eval.html?pid=3');eval(String.fromCharCode(97,108,101,114,116,40,39,104,105,39,41))//">eval.html?pid=3');eval(String.fromCharCode(97,108,101,114,116,40,39,104,105,39,41))//</a></td>
-                  <td><b>eval</b> with an unfiltered value from document.documentURI</td>
+                  <td>
+                  <p>
+                    <b>eval</b> is used with an unfiltered value from the sink document.documentURI Since eval evaluates the string given as code any user input value supplied here can be executed code and there is no safe way to avoid this xss flaw.
+                  </p>
+                    <hr/>
+                  <p>
+                    Eval should not be used with user controlled input.
+                  </p></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
@@ -175,7 +190,7 @@
                 <tr>
                   <th class="col-md-1">Sink</th>
                   <th class="col-md-3">Sample attack</th>
-                  <th class="col-md-4">Description</th>
+                  <th class="col-md-4">Description/Solution</th>
                   <th class="col-md-1 text-center">Firefox</th>
                   <th class="col-md-1 text-center">Chrome</th>
                   <th class="col-md-1 text-center">Edge</th>
@@ -204,7 +219,7 @@
                   <tr>
                     <th class="col-md-1">Sink</th>
                     <th class="col-md-3">Sample attack</th>
-                    <th class="col-md-4">Description</th>
+                    <th class="col-md-4">Description/Solution</th>
                     <th class="col-md-1 text-center">Firefox</th>
                     <th class="col-md-1 text-center">Chrome</th>
                     <th class="col-md-1 text-center">Edge</th>
@@ -255,7 +270,7 @@
                     <tr>
                       <th class="col-md-1">Sink</th>
                       <th class="col-md-3">Sample attack</th>
-                      <th class="col-md-4">Description</th>
+                      <th class="col-md-4">Description/Solution</th>
                       <th class="col-md-1 text-center">Firefox</th>
                       <th class="col-md-1 text-center">Chrome</th>
                       <th class="col-md-1 text-center">Edge</th>
@@ -319,7 +334,7 @@
                      <tr>
                       <th class="col-md-1">Sink</th>
                       <th class="col-md-3">Sample attack</th>
-                      <th class="col-md-4">Description</th>
+                      <th class="col-md-4">Description/Solution</th>
                       <th class="col-md-1 text-center">Firefox</th>
                       <th class="col-md-1 text-center">Chrome</th>
                       <th class="col-md-1 text-center">Edge</th>
@@ -350,7 +365,7 @@
                   <tr>
                     <th class="col-md-1">Sink</th>
                     <th class="col-md-3">Sample attack</th>
-                    <th class="col-md-4">Description</th>
+                    <th class="col-md-4">Description/Solution</th>
                     <th class="col-md-1 text-center">Firefox</th>
                     <th class="col-md-1 text-center">Chrome</th>
                     <th class="col-md-1 text-center">Edge</th>
@@ -382,7 +397,7 @@
                   <tr>
                     <th class="col-md-1">Sink</th>
                     <th class="col-md-3">Sample attack</th>
-                    <th class="col-md-4">Description</th>
+                    <th class="col-md-4">Description/Solution</th>
                     <th class="col-md-1 text-center">Firefox</th>
                     <th class="col-md-1 text-center">Chrome</th>
                     <th class="col-md-1 text-center">Edge</th>
@@ -402,7 +417,7 @@
                   <tr>
                     <th class="col-md-1">Sink</th>
                     <th class="col-md-3">Sample attack</th>
-                    <th class="col-md-4">Description</th>
+                    <th class="col-md-4">Description/Solution</th>
                     <th class="col-md-1 text-center">Firefox</th>
                     <th class="col-md-1 text-center">Chrome</th>
                     <th class="col-md-1 text-center">Edge</th>
@@ -431,7 +446,7 @@
                 <tr>
                   <th class="col-md-1">Sink</th>
                   <th class="col-md-3">Sample attack</th>
-                  <th class="col-md-4">Description</th>
+                  <th class="col-md-4">Description/Solution</th>
                   <th class="col-md-1 text-center">Firefox</th>
                   <th class="col-md-1 text-center">Chrome</th>
                   <th class="col-md-1 text-center">Edge</th>
@@ -442,7 +457,15 @@
                 <tr>
                   <td><p>Document.writeln</p></td>
                   <td><a href="static/localStorage/document_writeln.html">document_writeln.html</a></td>
-                  <td><b>document.writeln</b> with an unfiltered value from localStorage.</td>
+                  <td>
+                    <p>
+                    <b>document.writeln</b> is used with an unfiltered value from localStorage. LocalStorage was introduced with HTML5. Before data had to be stored in cookies and it was included in every request affecting the website performance.This new functionality bring a new type of stored source into play in dom-xss attacks 
+                  </p>
+                  <hr/>
+                  <p>
+                    As with other types of storage xss the user input should be validated and output encoding should be performed when the value is retrieved 
+                  </p>
+                </td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
@@ -459,7 +482,7 @@
                 <tr>
                   <th class="col-md-1">Sink</th>
                   <th class="col-md-3">Sample attack</th>
-                  <th class="col-md-4">Description</th>
+                  <th class="col-md-4">Description/Solution</th>
                   <th class="col-md-1 text-center">Firefox</th>
                   <th class="col-md-1 text-center">Chrome</th>
                   <th class="col-md-1 text-center">Edge</th>
@@ -477,7 +500,7 @@
                 <tr>
                   <th class="col-md-1">Sink</th>
                   <th class="col-md-3">Sample attack</th>
-                  <th class="col-md-4">Description</th>
+                  <th class="col-md-4">Description/Solution</th>
                   <th class="col-md-1 text-center">Firefox</th>
                   <th class="col-md-1 text-center">Chrome</th>
                   <th class="col-md-1 text-center">Edge</th>
@@ -489,7 +512,15 @@
                 <tr>
                   <td><p>Ember js Dom-XSS</p></td>
                   <td><a href="static/real/emberjs.html?query=&lt;img src=x onerror=alert(0)&gt;">emberjs.html?query=&lt;img src=x onerror=alert(0)&gt;</a></td>
-                  <td>Real example based on a vulnerability found in EmberJS with an unfiltered value from location.href</td>
+                  <td>
+                    <p>
+                    Real example based on a vulnerability found in the EmberJS framework with an unfiltered value from location.href. The use of decodeURIComponent opens up opportunities for dom-xss attacks.
+                  </p>
+                  <hr/>
+                  <p>
+                    Developers should take care when performing criticall operations like decodeURIComponent since it opens new chances of dom-xss attacks. THe unsafe sink innerHTML should be replaced or otherwise sanitize/encode the user input.
+                  </p>
+                  </td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
@@ -500,7 +531,15 @@
                 <tr>
                   <td><p>Twitter hashbang dom-xss</p></td>
                   <td><a href="static/real/twitter.html#!javascript:alert(1)">twitter.html/#!javascript:alert(1)</a></td>
-                  <td>Real example based on a vulnerability found in Twitter using the old Hashbang method with an unfiltered value from location.href</td>
+                  <td>
+                    <p>
+                    Real example based on a vulnerability found in Twitter using the old Hashbang method with an unfiltered value from location.href. The hashbang method was once used to tell Google how to index the page, since search engines dont execute the javascript in the pages 
+                  </p>
+                  <hr/>
+                  <p>
+                    Nowadays the use of pushstate has made this hashbang technique obsolete. Back then twitter employed sanitization of the input in order to avoid this dom-xss attack.
+                  </p>
+                  </td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
