@@ -126,7 +126,16 @@
                 <tr>
                   <td><p>Document.write</p></td>
                   <td><a href="static/document.documentURI/document_write.html#&lt;img src=foo onerror=alert(123)&gt;">document_write.html#&lt;img src=foo onerror=alert(123)&gt;</a></td>
-                  <td><b>document.write</b> with an unfiltered value from document.documentURI</td>
+                  <td>
+                    <p>
+                      <b>document.write</b> with an unfiltered value from document.documentURI. No encoding or escaping is done which means the sink will run any executable injection the attacker decides to include in the URI. This attack is although blocked in Chrome and Firefox.
+                    </p>
+                    <hr />
+                    <p>
+                      This sink should not be used. Instead the developer could use javascript methods such as element.innerText and element.appendChild which is adding the content to the webpage but without having the content being parsed as executable code.
+                    </p>
+                     
+                  </td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
@@ -479,7 +488,7 @@
 
                 <tr>
                   <td><p>Ember js Dom-XSS</p></td>
-                  <td><a href="static/real/emberjs.html#?query=&lt;img src=x onerror=alert(0)&gt;">emberjs.html?query=&lt;img src=x onerror=alert(0)&gt;</a></td>
+                  <td><a href="static/real/emberjs.html?query=&lt;img src=x onerror=alert(0)&gt;">emberjs.html?query=&lt;img src=x onerror=alert(0)&gt;</a></td>
                   <td>Real example based on a vulnerability found in EmberJS with an unfiltered value from location.href</td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
                   <td class="text-center"><i class="material-icons" style="font-size:24px;color:red;">clear</i></td>
