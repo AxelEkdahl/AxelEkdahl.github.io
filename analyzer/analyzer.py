@@ -4,7 +4,7 @@ Static DOM-XSS Scanner
 Authors: Axel Ekhdal and Lois Alberte Gomez Sanchez
 Developed for the course Language Based Security 2017
 '''
-import re,os,webbrowser,html
+import re,os,webbrowser,cgi
 from optparse import OptionParser
 
 SOURCES_RE = re.compile('(location\s*[\[.])|([.\[]\s*["\']?\s*(arguments|dialogArguments|open(Dialog)?|showModalDialog|cookie|URL|documentURI|baseURI|referrer|name|opener|parent|top|content|self|frames)\W)|(localStorage|sessionStorage|Database)')
@@ -50,12 +50,12 @@ def parseFile(name,filePath):
 	try:
 		with open(filePath,'r') as f:
 			for nLine,line in enumerate(f):
-				l = Line(html.escape(line),nLine)
-				for match in re.finditer(SOURCES_RE, html.escape(line)):
+				l = Line(cgi.escape(line),nLine)
+				for match in re.finditer(SOURCES_RE, cgi.escape(line)):
 					l.addSource(Source(match.start(),match.end()))
-				for match in re.finditer(SINKS_RE, html.escape(line)):
+				for match in re.finditer(SINKS_RE, cgi.escape(line)):
 					l.addSink(Sink(match.start(),match.end()))
-				for match in re.finditer(SINKS_JQUERY, html.escape(line)):
+				for match in re.finditer(SINKS_JQUERY, cgi.escape(line)):
 					l.addSink(Sink(match.start(),match.end()))
 				fileObject.addLine(l)
 	except:
@@ -89,10 +89,10 @@ def generateHtml(files, dir):
 	generateReport(html, dir)
 
 def generateReport(html, dir):
-	path = os.path.join(os.path.realpath("template") + "/template.html")
+	path = os.path.join(os.path.realpath("template"), "template.html")
 	with open(path,'r') as f:
 		template = f.read()
-		report_path= os.path.join(os.getcwd() + '/report.html')
+		report_path= os.path.join(os.getcwd(), 'report.html')
 	with open(report_path,'w') as f:
 		template = template.replace('{{DIRECTORY}}',os.path.realpath(dir))
 		template = template.replace('{{DATA}}',html)
