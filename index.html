@@ -349,7 +349,11 @@
                         <p>Here the HTML5 method <b> PostMessage </b>is used to bypass the Same Origin Policy through a loaded iframe. The PostMessage is a cross-document messaging that allows communication between different domains. This can be used by attackers to form attack vectors. The attacker can create an iframe on his own website that loads the target website. Throught the iframe the attacker can  send malicious content to manipulate the DOM of the target website so that sensitive information can be retrieved. In this test case an alert is injected in the target DOM to successfully retrieve the cookie of the target website</p>
                         <hr />
                         <p>
-                          The reason why this exploit is possible to do is because the target website does not do any sanitization or encoding before providing the data to the sink <b>element.innerHTML</b>. If this would be done properly this attack would no longer be a threat. </p>
+                          The first reason why this exploit is possible to do is because the target website does not do any sanitization or encoding  before providing the data to the sink <b>element.innerHTML</b>. If this would be done properly this attack would no longer be a threat. 
+                        </p>
+                        <p>
+                        	The second reason is due to the postmessage setup at the target website. The second parameter specifies the restrictions on which domains are allowed to read requests sent by the website sending the data with the postmessage. In this example it is set to allow any domain read the request. If restricted to only allow trusted websites this attack would prevented. 
+                    	</p>
                       </td>
                        <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
                       <td class="text-center"><i class="material-icons" style="font-size:24px;color:green;">done</i></td>
@@ -390,26 +394,6 @@
 
                 </tbody>
               </table>
-
-              <h1>Source: <br> window.top</h1>
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th class="col-md-1">Sink</th>
-                    <th class="col-md-3">Sample attack</th>
-                    <th class="col-md-4">Description/Solution</th>
-                    <th class="col-md-1 text-center">Firefox</th>
-                    <th class="col-md-1 text-center">Chrome</th>
-                    <th class="col-md-1 text-center">Edge</th>
-                    <th class="col-md-1 text-center">IE</th>   
-                  </tr>
-                </thead>
-                <tbody>
-
-
-                </tbody>
-              </table>
-
 
               <h1>Source: <br> document.referrer</h1>
               <table class="table table-striped">
