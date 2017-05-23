@@ -7,7 +7,7 @@ Developed for the course Language Based Security 2017
 import re,os,webbrowser,cgi
 from optparse import OptionParser
 
-SOURCES_RE = re.compile('(location\s*[\[.])|([.\[]\s*["\']?\s*(arguments|dialogArguments|open(Dialog)?|showModalDialog|cookie|URL|documentURI|baseURI|referrer|name|opener|parent|top|content|self|frames)\W)|(localStorage|sessionStorage|Database)')
+SOURCES_RE = re.compile('(location\s*[\[.])|([.\[]\s*["\']?\s*(postMessage|arguments|dialogArguments|open(Dialog)?|showModalDialog|cookie|URL|documentURI|baseURI|referrer|name|opener|parent|top|content|self|frames)\W)|(localStorage|sessionStorage|Database)')
 SINKS_RE = re.compile('innerHTML|write(ln)?|((src|href|data|location|code|value|action)\s*["\'\]]*\s*\+?\s*=)|((replace|assign|navigate|getResponseHeader|open(Dialog)?|showModalDialog|eval|evaluate|execCommand|execScript|setTimeout|setInterval)\s*["\'\]]*\s*\()')
 SINKS_JQUERY = re.compile('/after\(|\.append\(|\.before\(|\.html\(|\.prepend\(|\.replaceWith\(|\.wrap\(|\.wrapAll\(|\$\(|\.globalEval\(|\.add\(|jQUery\(|\$\(|\.parseHTML\(/')
 
